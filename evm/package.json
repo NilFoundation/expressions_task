@@ -1,0 +1,37 @@
+{
+  "name": "expressions_task",
+  "version": "1.0.0",
+  "description": "=nil; Foundation in-EVM expression evaluation task",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "@nomiclabs/hardhat-ethers": "^2.2.2",
+    "@truffle/hdwallet-provider": "^2.0.1",
+    "as-table": "1.0.55",
+    "bip39": "^3.0.4",
+    "dotenv": "^16.0.3",
+    "eth-gas-reporter": "^0.2.24",
+    "ethereumjs-wallet": "^1.0.2",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.14.0",
+    "hardhat-deploy": "^0.11.25",
+    "hardhat-deploy-ethers": "0.4.0-next.1",
+    "json5": "^2.2.1",
+    "lossless-json": "^2.0.9",
+    "solpp": "^0.11.5",
+    "web3": "^1.7.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nilfoundation/expressions_task.git"
+  },
+  "author": "Elena Tatuzova",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/nilfoundation/expressions_task/issues"
+  },
+  "homepage": "https://github.com/nilfoundation/expressions_task#readme"
+}
