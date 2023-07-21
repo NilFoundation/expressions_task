@@ -36,7 +36,12 @@ function loadInput(jsonFile){
     for( let i in named_params.input ){
         result.input.push(BigInt(named_params.input[i]));
     }
-    result.hash = BigInt(named_params.hash);
+    if( "hash" in named_params ){
+        result.hash = BigInt(named_params.hash);
+    }
+    if( "output" in named_params ){
+        result.output = BigInt(named_params.output);
+    }
     return result;
 }
 
@@ -49,9 +54,6 @@ task("verify-all")
             let data_set = get_files("./data/"+test);
             console.log(test);
 
-            //const {deployments, getNamedAccounts} = hre;
-            //const {deploy} = deployments;
-
             await deployments.fixture(['expressionsTaskFixture']);
             let testerContract = await ethers.getContract('ExpressionTester');
             let evaluatorContract = await ethers.getContract(test + '_evaluator');
@@ -60,12 +62,56 @@ task("verify-all")
                 let file = data_set[j];
                 let input = loadInput("./data/"+test+"/"+file);
                 process.stdout.write("\t" + file + " gas_usage = " );
-                let result = await testerContract.test_evaluator(input.input, input.hash, evaluatorContract.address);
+                if( "hash" in input ){
+                    let result = await testerContract.execute_and_check(input.input, input.hash, evaluatorContract.address);
+                    if( result ){
+                        process.stdout.write("\t\t passed\n");
+                    } else {
+                        process.stdout.write("\t\t failed\n");
+                    }
+                } else {
+                    let result = await testerContract.execute(input.input, evaluatorContract.address);
+                    if("output" in input){
+                        if(result == input.output){
+                            process.stdout.write("\t\t passed\n");
+                        } else {
+                            process.stdout.write("\t\t failed\n");
+                        }
+                    } else {
+                        process.stdout.write("\t\t executed without checking\n");
+                    }
+                }
+            }
+        }
+});
+
+task("verify-one")
+    .addParam("test")
+    .setAction(async (test, hre) => {
+        test = test.test;
+        let data_set = get_files("./data/"+test);
+
+        //const {deployments, getNamedAccounts} = hre;
+        //const {deploy} = deployments;
+
+        await deployments.fixture(['expressionsTaskFixture']);
+        let testerContract = await ethers.getContract('ExpressionTester');
+        let evaluatorContract = await ethers.getContract(test + '_evaluator');
+        await evaluatorContract.initialize();
+        for( let j in data_set){
+            let file = data_set[j];
+            let input = loadInput("./data/"+test+"/"+file);
+            process.stdout.write("\t" + file + " gas_usage = " );
+            if( "hash" in input ){
+                let result = await testerContract.execute_and_check(input.input, input.hash, evaluatorContract.address);
                 if( result ){
                     process.stdout.write("\t\t passed\n");
                 } else {
                     process.stdout.write("\t\t failed\n");
                 }
+            } else {
+                let result = await testerContract.execute(input.input, evaluatorContract.address);
+                process.stdout.write("\t\t executed without checking\n");
             }
         }
-});
+    });

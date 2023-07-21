@@ -21,15 +21,16 @@ import "./interfaces/evaluator.sol";
 import "hardhat/console.sol";
 
 contract ExpressionTester {
-    function test_evaluator(
+    function execute_and_check(
         uint256[] calldata vars,
         uint256 correct_hash,
         address evaluator_addr
     ) external view returns (bool){    
         uint256 gas = gasleft();
+
         IEvaluator evaluator_component = IEvaluator(evaluator_addr);
-        console.log(gas - gasleft());
         uint256 result = evaluator_component.evaluate(vars);
+        console.log(gas - gasleft());
         bytes32 real_hash = keccak256(abi.encodePacked(result));
         if( bytes32(correct_hash) == real_hash ) {
             return true;
@@ -38,5 +39,17 @@ contract ExpressionTester {
             console.log(uint256(real_hash));
             return false;
         }
+    }
+
+    function execute(
+        uint256[] calldata vars,
+        address evaluator_addr
+    ) external view returns (uint256){    
+        uint256 gas = gasleft();
+
+        IEvaluator evaluator_component = IEvaluator(evaluator_addr);
+        uint256 result = evaluator_component.evaluate(vars);
+        console.log(gas - gasleft());
+        return result;
     }
 }

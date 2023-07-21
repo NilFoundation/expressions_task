@@ -20,8 +20,9 @@ pragma solidity >=0.8.4;
 import "../../interfaces/evaluator.sol";
 
 contract triple_summator_evaluator is IEvaluator {
-    function initialize() external pure{}
-
+    function initialize() external pure{
+    }
+    
     function evaluate(
         uint256[] calldata vars
     ) external pure returns (uint256 gates_evaluation){
