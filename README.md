@@ -52,7 +52,7 @@ Evaluator contract initialization cost in not included.
 ## Clone
 ```
 git clone git@github.com:NilFoundation/expressions_task.git
-cd expressions_task
+cd expressions_task/evm
 ```
 
 ## Install dependency packages
