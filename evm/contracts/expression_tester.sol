@@ -21,6 +21,7 @@ import "./interfaces/evaluator.sol";
 import "hardhat/console.sol";
 
 contract ExpressionTester {
+    
     function execute_and_check(
         uint256[] calldata vars,
         uint256 correct_hash,
@@ -51,5 +52,12 @@ contract ExpressionTester {
         uint256 result = evaluator_component.evaluate(vars);
         console.log(gas - gasleft());
         return result;
+    }
+
+    function keccak(
+        uint256 a
+    ) external pure returns (uint256){    
+        bytes32 real_hash = keccak256(abi.encodePacked(a));
+        return uint256(real_hash);
     }
 }

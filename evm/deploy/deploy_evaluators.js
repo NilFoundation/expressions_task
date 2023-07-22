@@ -1,6 +1,7 @@
 const hre = require('hardhat')
 const { getNamedAccounts } = hre
 const fs = require('fs');
+const losslessJSON = require("lossless-json");
 
 function get_subfolders(dir) {
     const files = fs.readdirSync(dir, { withFileTypes: true });
@@ -22,26 +23,24 @@ module.exports = async function() {
     let subfolders = get_subfolders("./contracts/evaluators");
 
     for(k in subfolders){
+        console.log("Deploying",subfolders[k]);
         let deployed_libs = {}
-/*        let libs = losslessJSON.parse(fs.readFileSync("./contracts/evalutors/"+subfolders[k]+"/linked_libs_list.json", 'utf8'));
-        for (let lib of libs){
-            await deploy(lib, {
-                from: deployer,
-                log: true,
-            });
-            deployedLib[lib] = (await hre.deployments.get(lib)).address
-        }*/
+        if( fs.existsSync("./contracts/evaluators/"+subfolders[k]+"/linked_libs_list.json") ){
+            let libs = losslessJSON.parse(fs.readFileSync("./contracts/evaluators/"+subfolders[k]+"/linked_libs_list.json", 'utf8'));
+            for (let lib of libs){
+                await deploy(lib, {
+                    from: deployer,
+                    log: true,
+                });
+                deployed_libs[lib] = (await hre.deployments.get(lib)).address
+            }
+        }
         d = await deploy(subfolders[k]+'_evaluator', {
             from: deployer,
             libraries : deployed_libs,
             log : true,
         });
     }
-
-    await deploy('binary_summator_evaluator', {
-        from: deployer,
-        log : true,
-    });
 }
 
 module.exports.tags = ['expressionsTaskFixture']
