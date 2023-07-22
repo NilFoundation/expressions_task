@@ -93,5 +93,7 @@ npx hardhat verify-one -- test binary_summator #Execute tests for only one chose
 ## Community
 
 Issue reports are preferred to be done with Github Issues in here: https://github.com/NilFoundation/expressions_task/issues.
+
 Usage and development questions are preferred to be asked in Discord (https://discord.gg/KmTAEjbmM3)
-Send solutions on e-mail: e.tatuzova@nil.foundation
+
+Send solutions: e.tatuzova@nil.foundation
