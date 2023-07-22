@@ -1,4 +1,4 @@
-# EVM Placeholder Proof System Verifier 
+# Expression evaluation task
 
 [![Discord](https://img.shields.io/discord/969303013749579846.svg?logo=discord&style=flat-square)](https://discord.gg/KmTAEjbmM3)
 [![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=flat-square&logo=telegram&logoColor=dark)](https://t.me/nilfoundation)
@@ -7,14 +7,14 @@
 Expression is formula with braces, additions, subractions, multiplications and power operations over number of variables. 
 For each expression solution should generate a contract, which computes a value of given expression on different inputs.
 
-# Input
+## Input
 
 Input is placed in ``inputs`` folder. First line of input is expression. Second line is modulus.
 ```
 (W0 + W1)
 2
 ```
-# Output
+## Output
 
 Output is Solidity contract, which calculates expression from input file.
 For example, for input file ``binary_summator.txt``  output should generate solidity contract named ``binary_summator_evaluator`` inherited from ``IEvaluator`` interface and place in  ``contracts/evaluators/binary_summator`` folder.
@@ -39,9 +39,12 @@ Opened correct answer may be stored in ``output`` field.
 }
 ```
 
-# Who wins
-Wins contracts generator with the smallest gas consumption.
-Evaluator contract initialization cost in not included.
+## Who wins
+We recieve solutions to the task until July 30.
+The author of the best solution receives a prize of $1000
+
+Wins contract generator with the smallest gas consumption.
+Evaluator contract initialization cost is not included.
 
 ## Dependencies
 
