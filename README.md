@@ -4,8 +4,8 @@
 [![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=flat-square&logo=telegram&logoColor=dark)](https://t.me/nilfoundation)
 [![Twitter](https://img.shields.io/twitter/follow/nil_foundation)](https://twitter.com/nil_foundation)
 
-Expression is formula with braces, additions, subractions, multiplication, power operation over number of variables. 
-For each expression solution should generate a contract, which computes a value of expression on a different inputs in prime field with given order.
+Expression is formula with braces, additions, subractions, multiplications and power operations over number of variables. 
+For each expression solution should generate a contract, which computes a value of given expression on different inputs.
 
 # Input
 
@@ -17,7 +17,7 @@ Input is placed in ``inputs`` folder. First line of input is expression. Second 
 # Output
 
 Output is Solidity contract, which calculates expression from input file.
-For example, for input file ``binary_summator.txt``  output will be solidity contract named ``binary_summator_evaluator`` and placed in  ``contracts/evaluators/binary_summator`` folder.
+For example, for input file ``binary_summator.txt``  output should generate solidity contract named ``binary_summator_evaluator`` inherited from ``IEvaluator`` interface and place in  ``contracts/evaluators/binary_summator`` folder.
 
 If output contract needs any external libraries calls, enumerate used libraries names in ``linked_libs_list.json`` in the folder with contract.
 
