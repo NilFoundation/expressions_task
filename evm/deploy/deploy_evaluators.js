@@ -23,7 +23,6 @@ module.exports = async function() {
     let subfolders = get_subfolders("./contracts/evaluators");
 
     for(k in subfolders){
-        console.log("Deploying",subfolders[k]);
         let deployed_libs = {}
         if( fs.existsSync("./contracts/evaluators/"+subfolders[k]+"/linked_libs_list.json") ){
             let libs = losslessJSON.parse(fs.readFileSync("./contracts/evaluators/"+subfolders[k]+"/linked_libs_list.json", 'utf8'));
